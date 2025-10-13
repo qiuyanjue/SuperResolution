@@ -1,0 +1,17 @@
+# Python
+
+# 資料夾
+__pycache__/ 
+
+# 副檔名
+*.h5  
+
+# 忽略 data 資料夾內所有內容
+data/*
+# 但保留 .gitkeep
+!data/.gitkeep
+
+# 忽略 output 資料夾內所有內容
+output/*
+# 但保留 .gitkeep
+!output/.gitkeep
