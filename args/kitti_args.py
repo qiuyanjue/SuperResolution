@@ -56,12 +56,6 @@ def parse_kitti_args():
     parser.add_argument('--gamma', default=0.5, type=float,
                        help='learning rate decay factor')
     
-    # ========== Loss Configuration ==========
-    parser.add_argument('--use_smooth_loss', default=False, type=str2bool,
-                       help='whether to use smooth L1 loss')
-    parser.add_argument('--beta', default=0.01, type=float,
-                       help='beta for smooth L1 loss')
-    
     # ========== Model Configuration ==========
     parser.add_argument('--k', default=16, type=int,
                        help='number of nearest neighbors for feature extraction')
@@ -79,12 +73,6 @@ def parse_kitti_args():
     # ========== Query Points Configuration ==========
     parser.add_argument('--local_sigma', default=0.02, type=float,
                        help='sigma for sampling query points around interpolated points')
-    
-    # ========== Distance Truncation ==========
-    parser.add_argument('--truncate_distance', default=False, type=str2bool,
-                       help='whether to truncate point-to-point distance')
-    parser.add_argument('--max_dist', default=0.2, type=float,
-                       help='maximum point-to-point distance for truncation')
     
     # ========== Output Configuration ==========
     parser.add_argument('--out_path', default='./output', type=str,
@@ -113,17 +101,15 @@ def parse_kitti_args():
     else:
         raise ValueError(f"Unsupported up_rate: {args.up_rate}")
     
-    # Print configuration
+    # Print configuration summary
     print("\n" + "="*60)
     print("KITTI Point Cloud Upsampling Configuration")
     print("="*60)
-    print(f"Task: {args.num_points} points -> {args.num_points * args.up_rate} points ({args.up_rate}x upsampling)")
-    print(f"Dataset: {args.dataset}")
-    print(f"Batch size: {args.batch_size}")
-    print(f"Epochs: {args.epochs}")
-    print(f"Learning rate: {args.lr}")
-    print(f"Optimizer: {args.optim}")
-    print(f"Output path: {args.out_path}")
+    print(f"Task: {args.num_points} -> {args.num_points * args.up_rate} points ({args.up_rate}x upsampling)")
+    print(f"Batch size: {args.batch_size} | Epochs: {args.epochs}")
+    print(f"Learning rate: {args.lr} | LR decay: every {args.lr_decay_step} epochs (×{args.gamma})")
+    print(f"Optimizer: {args.optim} | Loss: Chamfer Distance")
+    print(f"Output: {args.out_path}")
     print("="*60 + "\n")
     
     return args
@@ -133,6 +119,9 @@ if __name__ == '__main__':
     """Test argument parsing"""
     args = parse_kitti_args()
     
-    print("\n=== Full Configuration ===")
+    print("\n" + "="*60)
+    print("Full Configuration (for debugging)")
+    print("="*60)
     for arg, value in sorted(vars(args).items()):
         print(f"{arg:25s}: {value}")
+    print("="*60 + "\n")

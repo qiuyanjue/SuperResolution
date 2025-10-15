@@ -1,14 +1,13 @@
 """
 Complete patched pointops.py with fallback to PyTorch-native implementations
 Supports automatic offset generation and proper batch indexing
-Version: 2024-10-10 - Final
+Version: 2024-10-10 - Cleaned
 """
 
 import torch
 
 # Always use PyTorch fallback (CUDA version not compiled)
 USE_CUDA = False
-print("ℹ Using PyTorch-native pointops implementation (no CUDA compilation)")
 
 # ==================== PyTorch Fallback Implementations ====================
 

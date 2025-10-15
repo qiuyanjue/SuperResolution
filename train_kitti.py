@@ -12,12 +12,6 @@ sys.path.append(os.getcwd())
 from dataset.kitti_dataset import KITTIPatchDataset
 from models.P2PNet import P2PNet
 from args.kitti_args import parse_kitti_args
-
-# Always use PyTorch-native implementations for compatibility
-print("="*60)
-print("Using PyTorch-native implementations (no CUDA compilation needed)")
-print("="*60)
-
 from models.utils import (
     set_seed, get_logger, get_knn_pts, index_points,
     midpoint_interpolate, get_query_points, chamfer_distance,
@@ -327,7 +321,7 @@ if __name__ == '__main__':
         sys.exit(1)
     
     print(f"Using GPU: {torch.cuda.get_device_name(0)}")
-    print(f"GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB\n")
+    print(f"GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
     
     # Start training
     try:

@@ -15,12 +15,8 @@ from einops import rearrange
 try:
     from models import pointops
     USE_POINTOPS = True
-    print("✓ Using compiled pointops (CUDA)")
 except Exception as e:
     USE_POINTOPS = False
-    print(f"⚠ Warning: Could not import pointops: {e}")
-    print("⚠ Falling back to PyTorch-native implementations")
-
 
 def set_seed(seed):
     """Set random seed for reproducibility"""

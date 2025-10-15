@@ -1,6 +1,7 @@
 import torch
 import torch.utils.data as data
 import h5py
+import os
 import numpy as np
 from dataset.utils import *
 
@@ -58,12 +59,9 @@ class KITTIPatchDataset(data.Dataset):
         if len(self.patch_names) == 0:
             raise ValueError(f"No matching patches found between {sparse_h5_path} and {dense_h5_path}")
         
-        print(f"[KITTIPatchDataset] Loaded {len(self.patch_names)} patches")
-        print(f"  - Sparse h5: {sparse_h5_path}")
-        print(f"  - Dense h5: {dense_h5_path}")
-        print(f"  - Upsampling rate: {up_rate}x")
-        print(f"  - Normalize: {normalize}")
-        print(f"  - Augment: {augment}")
+        print(f"[KITTIPatchDataset] Loaded {len(self.patch_names)} patches ({up_rate}x upsampling)")
+        print(f"  Files: {os.path.basename(sparse_h5_path)} -> {os.path.basename(dense_h5_path)}")
+        print(f"  Config: Normalize={normalize}, Augment={augment}\n")
     
     def __len__(self):
         return len(self.patch_names)
